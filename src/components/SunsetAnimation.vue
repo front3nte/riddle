@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue'
-const fantasyQuizStart = import.meta.env.VITE_FANTASY_START || "October 31, 2023 00:00:00";
+const fantasyQuizStart = import.meta.env.VITE_FANTASY_START || 'October 31, 2023 00:00:00'
 
 const countDownDate = new Date(fantasyQuizStart).getTime()
 const now = new Date().getTime()
@@ -23,7 +23,7 @@ function endWaiting() {
 
 onMounted(() => {
   if (distance < 0) {
-    document.body.style.setProperty('--duration', `${60000}ms`)
+    document.body.style.setProperty('--duration', `${import.meta.env.VITE_SUNSET || 60000}ms`)
   }
 })
 </script>

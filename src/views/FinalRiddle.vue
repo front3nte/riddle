@@ -37,9 +37,9 @@ if (!levelStore.reached('final-riddle')) {
       <p>
         Sobald alles an seinem Platz ist, sollt ihr die uralten Worte sprechen: "Durch das Wissen
         der Vergangenheit, öffne dich für unsere Mission!" Wenn ihr richtig liegt, wird sich das
-        Portal öffnen und der letzte Hinweis wird euch enthüllt. Wenn nicht, muss das Rätsel von
-        Neuem begonnen werden. Seid wachsam, denn eure Mission ist fast erfüllt. Es liegt nun an
-        euch, die Antworten zu kombinieren und das Portal zu öffnen.
+        Portal zum Turm des Palastes von Wesoria öffnen und der letzte Hinweis wird euch enthüllt.
+        Wenn nicht, muss das Rätsel von Neuem begonnen werden. Seid wachsam, denn eure Mission ist
+        fast erfüllt. Es liegt nun an euch, die Antworten zu kombinieren und das Portal zu öffnen.
       </p>
     </QuizApp>
   </main>

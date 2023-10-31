@@ -42,24 +42,51 @@ function submit() {
 </script>
 
 <template>
-  <p v-if="formState.success === true">
-    Richtig! {{ levelStore.level === 'fantasy-quiz' ? '🧙‍♂️' : '🥳' }} Bewahrt die Antwort gut auf...
-  </p>
-  <form v-else @submit.prevent="submit">
-    <h1>{{ props.index ? `Raetsel Nummer ${props.index + 1}` : 'Naechstes Raetsel' }}</h1>
-    <p v-html="props.question"></p>
-    <input
-      placeholder="Deine Antwort"
-      ref="input"
-      type="text"
-      class="answer"
-      v-model="givenAnswer"
-      :class="{ error: formState.hasError }"
-    />
-  </form>
+  <div class="parchment">
+    <div class="parchment__inner">
+    <p v-if="formState.success === true">
+      Richtig! {{ levelStore.level === 'fantasy-quiz' ? '🧙‍♂️' : '🥳' }} Bewahrt die Antwort gut
+      auf...
+    </p>
+    <form v-else @submit.prevent="submit">
+      <h1>{{ props.index ? `Raetsel Nummer ${props.index + 1}` : 'Naechstes Raetsel' }}</h1>
+      <p v-html="props.question"></p>
+      <input
+        placeholder="Deine Antwort"
+        ref="input"
+        type="text"
+        class="answer"
+        v-model="givenAnswer"
+        :class="{ error: formState.hasError }"
+      />
+    </form>
+  </div>
+  </div>
 </template>
 
 <style lang="scss">
+body.fantasy-quiz .parchment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('/public/pergament.png') no-repeat;
+  background-size: 100% 100%;
+  max-width: 100%;
+  max-height: 100%;
+  color: var(--color-background);
+
+  &__inner {
+    padding: 100px 220px;
+  }
+
+  input {
+    background-color: transparent;
+    outline: none;
+    border-bottom: 2px var(--color-background);
+    border-bottom-style: dotted;
+  }
+}
+
 @keyframes shake {
   from {
     transform: translateX(-2px);
