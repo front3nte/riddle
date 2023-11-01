@@ -2,16 +2,23 @@
 import router from '@/router'
 import QuizApp from '../components/QuizApp.vue'
 import { useLevelStore } from '../stores/quiz'
+import { onMounted } from 'vue';
 
 const levelStore = useLevelStore()
-if (!levelStore.reached('final-riddle')) {
+if (!levelStore.reached('final-riddle') && !import.meta.env.VITE_SKIP_ALLOWED) {
   router.push('/fantasy-quiz')
 }
+
+onMounted(() => {
+  document.body.classList.remove(...levelStore.levels, "start");
+  document.body.classList.add("final-riddle")
+})
+
 </script>
 
 <template>
   <main>
-    <QuizApp start-text="Tretet Näher!">
+    <QuizApp start-text="Tretet Näher!" level="final-riddle">
       <p>
         Mit dem Wissen und den Erkenntnissen, die ihr während eurer epischen Reise durch das Land
         gesammelt habt, steht ihr nun vor einem monumentalen, von magischem Leuchten durchzogenen

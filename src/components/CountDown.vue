@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useLevelStore } from '@/stores/quiz'
-import router from '@/router'
-
-document.body.classList.add('start')
+import router from '../router'
 
 const levelStore = useLevelStore()
 
@@ -13,7 +11,7 @@ const minutesElement = ref(null)
 const secondsElement = ref(null)
 
 // Set the date we're counting down to
-const quizStart = import.meta.env.VITE_QUIZ_START || "October 31, 2023 00:00:00";
+const quizStart = import.meta.env.VITE_QUIZ_START || 'October 31, 2023 00:00:00'
 const countDownDate = new Date(quizStart).getTime()
 
 onMounted(() => {
@@ -45,9 +43,11 @@ onMounted(() => {
 
     // If the countdown is over, display a message
     if (distance < 0) {
-      // exceeded.value = true;
-      levelStore.increment()
-      router.push('/quiz')
+      if (levelStore.level === 'countdown') {
+        levelStore.increment()
+      } else {
+        router.push({ name: levelStore.getNextLevel('countdown') })
+      }
 
       clearInterval(x)
       ;(daysElement.value as HTMLSpanElement).innerText = '00'

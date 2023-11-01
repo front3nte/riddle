@@ -1,29 +1,40 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import router from '../router'
 
 export const useLevelStore = defineStore('level', () => {
-  const levels = [
-    'countdown',
-    'basic-quiz',
-    'fantasy-quiz',
-    'final-riddle'
-  ]
+  const levels = ['countdown', 'quiz', 'fantasy-quiz', 'final-riddle']
 
-  const level = ref('countdown')
-  set(level.value)
+  const storedLevel = localStorage.getItem('level')
+  const level = ref(storedLevel || 'countdown')
+
+  set(level.value, false)
 
   function increment() {
-    const index = levels.indexOf(level.value)
-    set(levels[index + 1])
+    set(getNextLevel(level.value), true)
   }
 
-  function set(newLevel: string) {
+  function set(newLevel: string, gotTo: boolean) {
+    if (!levels.includes(newLevel)) {
+      return
+    }
+
     level.value = newLevel
-    document.body.classList.remove(...levels)
-    document.body.classList.add(level.value)
+    localStorage.setItem('level', level.value)
 
     const index = levels.indexOf(level.value)
-    document.body.classList.toggle('start', index < levels.indexOf('fantasy-welcome'))
+
+    if (index > 0 && gotTo) {
+      console.log('nagiating to newLevel', newLevel)
+      router.push({ name: newLevel })
+    }
+  }
+
+  function getNextLevel(currentLevel: string) {
+    const index = levels.indexOf(currentLevel)
+    if (index < levels.length) {
+      return levels[index + 1]
+    }
   }
 
   function reached(searchLevel: string) {
@@ -32,19 +43,12 @@ export const useLevelStore = defineStore('level', () => {
     return searchIndex <= index
   }
 
-  return { increment, level, reached, set }
+  function restart() {
+    set(levels[0], true)
+    levels.forEach((l) => {
+      localStorage.removeItem(l)
+    })
+  }
+
+  return { increment, level, reached, set, levels, getNextLevel, restart }
 })
-
-// export const useQuizStore = defineStore('quizIndex', () => {
-//   const count = ref(0)
-
-//   function reset() {
-//     count.value = 0;
-//   }
-
-//   function increment() {
-//     count.value++
-//   }
-
-//   return { count, increment, reset }
-// })

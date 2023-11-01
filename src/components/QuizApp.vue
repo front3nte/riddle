@@ -2,7 +2,7 @@
 import QuestionItem from './QuestionItem.vue'
 import { useLevelStore } from '../stores/quiz'
 import type { PropType } from 'vue'
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
 import router from '../router'
 import SunsetAnimation from './SunsetAnimation.vue'
 
@@ -16,43 +16,96 @@ interface Question {
 const props = defineProps({
   questions: Array as PropType<Question[]>,
   startText: String,
-  nextLevel: String,
+  level: String,
   wait: Boolean,
   waitingText: String
 })
 
 const state = reactive({
-  index: -1,
+  reachedQuest: 0,
+  displayQuest: 0,
   isWaiting: props.wait
 })
 
-function nextQuestion() {
-  state.index++
-  if (props.questions && state.index >= props.questions?.length && props.nextLevel) {
-    router.push(props.nextLevel)
-    levelStore.increment()
+onMounted(() => {
+  // Prevent user from skipping levels
+  if (!levelStore.reached(props.level)) {
+    console.info('Preventing user from skipping levels')
+    router.push({ name: levelStore.level })
   }
+
+  // Materialize quest state from storage
+  const storedQuest = localStorage.getItem(props.level)
+  if (storedQuest) {
+    state.reachedQuest = Number.parseInt(storedQuest)
+  }
+})
+
+router.beforeResolve((guard) => {
+  console.log('watched', guard.params.quest)
+  if (guard.params.quest === undefined) {
+    return
+  }
+
+  if (guard.params.quest === '') {
+    state.displayQuest = 0
+  }
+
+  const urlQuest = Number.parseInt(guard.params.quest as string)
+
+  if (urlQuest < state.reachedQuest) {
+    state.displayQuest = urlQuest
+    return
+  }
+})
+
+function nextQuestion() {
+  const reachedLastQuestion = props.questions && state.displayQuest >= props.questions?.length
+
+  if (reachedLastQuestion) {
+    console.info("reachedLastQuestion")
+    if (levelStore.level === props.level) {
+      console.info("increment level");
+      levelStore.increment()
+    } else {
+      console.log("navigating to next level")
+      router.push({ name: levelStore.getNextLevel(props.level) })
+    }
+    return
+  }
+
+  if (state.reachedQuest === state.displayQuest) {
+    console.info("increment quest")
+    state.reachedQuest++
+    localStorage.setItem(props.level, String(state.reachedQuest))
+  }
+
+  state.displayQuest++
+  router.push({ name: props.level, params: { quest: state.displayQuest } })
 }
 </script>
 
 <template>
-  <div v-if="state.index < 0">
+  <div v-if="state.displayQuest == 0">
     <slot />
     <div v-if="state.isWaiting">
       <SunsetAnimation @exceeded="state.isWaiting = false" />
       <p class="wait-text">{{ props.waitingText }}</p>
     </div>
-    <button v-else class="riddle-start-button" @click="state.index++">{{ props.startText }}</button>
+    <button v-else class="riddle-start-button" @click="nextQuestion()">
+      {{ props.startText }}
+    </button>
   </div>
   <div v-else>
     <template v-for="(item, index) in props.questions" :key="`questionItem-${index}`">
       <QuestionItem
-        v-if="state.index == index"
-        :index="index"
+        :level="props.level"
+        v-if="state.displayQuest == index + 1"
+        :display-quest="state.displayQuest"
         :question="item.q"
         :answer="item.a"
         :questionCount="props.questions?.length"
-        @reset="state.index = -1"
+        :reachedQuest="state.reachedQuest"
         @next="nextQuestion()"
       />
     </template>
