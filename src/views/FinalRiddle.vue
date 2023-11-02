@@ -48,7 +48,7 @@ const questions = [
     </code>
 
     Welche magische Sequenz offenbart euch das Portal, nachdem ihr alle auf eurer Reise gesammelten Schlüssel in die passenden Vertiefungen eingesetzt habt?`,
-    a: import.meta.env.VITE_GEO_ANSWER,
+    a: btoa(import.meta.env.VITE_GEO_ANSWER),
     e: '🌌'
   }
 ]

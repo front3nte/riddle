@@ -86,6 +86,10 @@ function nextQuestion() {
   state.displayQuest++
   router.push({ name: props.level, params: { quest: state.displayQuest } })
 }
+
+function decode (base64String: string) {
+  return atob(base64String);
+}
 </script>
 
 <template>
@@ -106,7 +110,7 @@ function nextQuestion() {
         v-if="state.displayQuest == index + 1"
         :display-quest="state.displayQuest"
         :question="item.q"
-        :answer="item.a"
+        :answer="decode(item.a)"
         :emoji="item.e"
         :questionCount="props.questions?.length"
         :reachedQuest="state.reachedQuest"

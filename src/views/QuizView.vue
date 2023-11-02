@@ -18,63 +18,63 @@ onMounted(() => {
 const questions = [
   {
     q: 'Was ist die erste Ziffer von Jasmins Durchwahl?',
-    a: '8',
-    e: '📞',
+    a: 'OA==',
+    e: '📞'
   },
   {
     q: 'Wann hat Antonio auf seiner Tastatur einen echten Bug 🐞 gefunden (dd.mm.yyyy)?',
-    a: '15.12.2021',
-    e: '🐞',
+    a: 'MTUuMTIuMjAyMQ==',
+    e: '🐞'
   },
   {
     q: 'Wann hat Daniel davon berichtet, dass eine Theme-Erstellerin Hühner, Feuer und Lamas in die IDE zaubert (dd.mm.yyyy)?',
-    a: '30.06.2021',
-    e: '🐔',
+    a: 'MzAuMDYuMjAyMQ==',
+    e: '🐔'
   },
   {
     q: 'Was ist der zweite **Begriff** in der zweiten &lt;h3&gt; in den Notizen vom Frontend Circle vom `${Dritte Antwort}`?',
-    a: 'Task Runner',
-    e: '💨',
+    a: 'VGFzayBSdW5uZXI=',
+    e: '💨'
   },
   {
     q: 'Wer steht auf Nummer `${Erste Antwort}` der Teilnehmer:innen des Frontend Circles vom `${Zweite Antwort}`?',
-    a: 'Nadine Pusch',
-    e: '⭕',
+    a: 'TmFkaW5lIFB1c2No',
+    e: '⭕'
   },
   {
     q: 'Wer hat einen Blog Post darüber geschrieben, dass ein bestimmter `${Vierte Antwort}` bei Installation fehlschlägt?',
-    a: 'André Petrakow',
-    e: '❌',
+    a: 'QW5kcukgUGV0cmFrb3c=',
+    e: '❌'
   },
   {
     q: 'Welches Unicode-Zeichen ist in der UTF-8-codierung binär mit `01011110` codiert?',
-    a: '^',
-    e: '🗡️',
+    a: 'Xg==',
+    e: '🗡️'
   },
   {
     q: 'Erster Buchstabe des zweiten Wortes von `${Vierte Antwort}`',
-    a: 'R',
-    e: '🦄',
+    a: 'Ug==',
+    e: '🦄'
   },
   {
     q: 'Erster Buchstabe des zweiten Wortes von `${Sechste Antwort}`',
-    a: 'P',
-    e: '🧙🏼‍♂️',
+    a: 'UA==',
+    e: '🧙🏼‍♂️'
   },
   {
     q: 'const a = `${Dritte Antwort}`;<br> console.log(`${a.vorvorletztesZeichen}${a.vorletzteZeichen}`);<br><br> Was wird hier in der Konsole ausgegeben?',
-    a: '02',
-    e: '🐉',
+    a: 'MDI=',
+    e: '🐉'
   },
   {
-    q: 'Dritter Buchstabe von `${Fünfte Antwort}`', // Hier könnte man alternativ auch das @ nehmen
-    a: 'd',
-    e: '🕶',
+    q: 'Dritter Buchstabe von `${Fünfte Antwort}`',
+    a: 'ZA==',
+    e: '🕶'
   },
   {
     q: 'Zweiter Buchstabe des zweiten Wortes von `${Fünfte Antwort}`',
-    a: 'u',
-    e: '🧝',
+    a: 'dQ==',
+    e: '🧝'
   }
 ]
 </script>
