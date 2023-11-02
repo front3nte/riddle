@@ -33,7 +33,7 @@ onMounted(() => {
   </div>
 </template>
 <style lang="scss">
-body.fantasy-quiz {
+body.fantasy-quiz:not(.quiz-end) {
   animation: dusk var(--duration) linear;
 
   .container.waiting {

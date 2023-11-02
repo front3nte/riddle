@@ -11,6 +11,7 @@ const levelStore = useLevelStore()
 interface Question {
   q: string
   a: string
+  e?: string
 }
 
 const props = defineProps({
@@ -18,7 +19,9 @@ const props = defineProps({
   startText: String,
   level: String,
   wait: Boolean,
-  waitingText: String
+  waitingText: String,
+  fantasy: Boolean,
+  heading: String
 })
 
 const state = reactive({
@@ -63,19 +66,19 @@ function nextQuestion() {
   const reachedLastQuestion = props.questions && state.displayQuest >= props.questions?.length
 
   if (reachedLastQuestion) {
-    console.info("reachedLastQuestion")
+    console.info('reachedLastQuestion')
     if (levelStore.level === props.level) {
-      console.info("increment level");
+      console.info('increment level')
       levelStore.increment()
     } else {
-      console.log("navigating to next level")
+      console.log('navigating to next level')
       router.push({ name: levelStore.getNextLevel(props.level) })
     }
     return
   }
 
   if (state.reachedQuest === state.displayQuest) {
-    console.info("increment quest")
+    console.info('increment quest')
     state.reachedQuest++
     localStorage.setItem(props.level, String(state.reachedQuest))
   }
@@ -104,9 +107,12 @@ function nextQuestion() {
         :display-quest="state.displayQuest"
         :question="item.q"
         :answer="item.a"
+        :emoji="item.e"
         :questionCount="props.questions?.length"
         :reachedQuest="state.reachedQuest"
         @next="nextQuestion()"
+        :fantasy="props.fantasy"
+        :heading="props.heading"
       />
     </template>
   </div>
@@ -130,8 +136,9 @@ function nextQuestion() {
   justify-content: center;
   font-family: var(--base-font);
 
-  &.final {
+  .final-riddle & {
     float: none;
+    margin-top: 1rem;
   }
 
   &:hover {

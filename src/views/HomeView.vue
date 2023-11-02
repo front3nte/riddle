@@ -6,7 +6,7 @@ import { onMounted } from 'vue'
 const levelStore = useLevelStore()
 
 onMounted(() => {
-  document.body.classList.remove(...levelStore.levels);
+  document.body.classList.remove(...levelStore.levels)
   document.body.classList.add('countdown', 'start')
 })
 </script>

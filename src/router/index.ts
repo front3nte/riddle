@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'countdown',
-      component: HomeView,
+      component: HomeView
     },
     {
       path: '/quiz/:quest?',
@@ -15,7 +15,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Quiz.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/QuizView.vue'),
+      component: () => import('../views/QuizView.vue')
     },
     {
       path: '/fantasy-quiz/:quest?',
@@ -23,7 +23,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Quiz.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/FantasyQuiz.vue'),
+      component: () => import('../views/FantasyQuiz.vue')
     },
     {
       path: '/final-riddle/:quest?',
@@ -31,7 +31,15 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (Quiz.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/FinalRiddle.vue'),
+      component: () => import('../views/FinalRiddle.vue')
+    },
+    {
+      path: '/quiz-end',
+      name: 'quiz-end',
+      // route level code-splitting
+      // this generates a separate chunk (Quiz.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/QuizEnd.vue')
     }
   ]
 })

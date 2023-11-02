@@ -63,7 +63,7 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  font-weight: normal;
+  // font-weight: normal;
 }
 
 @font-face {
@@ -121,5 +121,5 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--heading-font)
+  font-family: var(--heading-font);
 }

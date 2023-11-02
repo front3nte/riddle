@@ -2,7 +2,7 @@
 import router from '@/router'
 import QuizApp from '../components/QuizApp.vue'
 import { useLevelStore } from '../stores/quiz'
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
 
 const levelStore = useLevelStore()
 if (!levelStore.reached('final-riddle') && !import.meta.env.VITE_SKIP_ALLOWED) {
@@ -10,15 +10,58 @@ if (!levelStore.reached('final-riddle') && !import.meta.env.VITE_SKIP_ALLOWED) {
 }
 
 onMounted(() => {
-  document.body.classList.remove(...levelStore.levels, "start");
-  document.body.classList.add("final-riddle")
+  document.body.classList.remove(...levelStore.levels, 'start')
+  document.body.classList.add('final-riddle')
 })
 
+const questions = [
+  {
+    q: `<code>
+      <pre>
+    function öffnePortal({purpur, saphire, smaragte, goldunzen, rubine}) {
+      function verwandlung(drachenblut) {
+        return drachenblut.charCodeAt(0).toString()
+      }
+
+      function magie(feenstaub) {
+        return feenstaub.charCodeAt(0).toString(16)
+      }
+
+      const [a, d, A, l] = purpur.map(verwandlung);
+      const [n, G, f] = saphire.map(magie);
+      const [h, e, s] = smaragte;
+      const [k, L, g] = goldunzen.map(verwandlung);
+      const [o, I, ä] = rubine.map(magie);
+      return n + "." + [G,a,n,d,A,l,f].join('') + ", " + h + "." + [k,L,e,g,o,I,ä,s].join('');
+    }
+
+    var schlüssel = {
+      purpur: [🌿, 🔮, 🏰, 🗡️],
+      saphire: [🦄, 🧙🏼‍♂️, ✨],
+      smaragte: [⚔️, 🐉, 🐲],
+      goldunzen: [🏹, 🧚‍♀, 📜],
+      rubine: [📖, 🧝, 📚],
+    }
+
+    var magischeSequenz = öffnePortal(schlüssel);
+    </pre>
+    </code>
+
+    Welche magische Sequenz offenbart euch das Portal, nachdem ihr alle auf eurer Reise gesammelten Schlüssel in die passenden Vertiefungen eingesetzt habt?`,
+    a: import.meta.env.VITE_GEO_ANSWER,
+    e: '🌌'
+  }
+]
 </script>
 
 <template>
   <main>
-    <QuizApp start-text="Tretet Näher!" level="final-riddle">
+    <QuizApp
+      :questions="questions"
+      start-text="Tretet Näher!"
+      level="final-riddle"
+      heading="Willkommen am Portal von Wesoria"
+    >
       <p>
         Mit dem Wissen und den Erkenntnissen, die ihr während eurer epischen Reise durch das Land
         gesammelt habt, steht ihr nun vor einem monumentalen, von magischem Leuchten durchzogenen
@@ -42,12 +85,18 @@ onMounted(() => {
         Stück des Puzzles an seinen Platz gesetzt wird.
       </p>
       <p>
-        Sobald alles an seinem Platz ist, sollt ihr die uralten Worte sprechen: "Durch das Wissen
-        der Vergangenheit, öffne dich für unsere Mission!" Wenn ihr richtig liegt, wird sich das
-        Portal zum Turm des Palastes von Wesoria öffnen und der letzte Hinweis wird euch enthüllt.
-        Wenn nicht, muss das Rätsel von Neuem begonnen werden. Seid wachsam, denn eure Mission ist
-        fast erfüllt. Es liegt nun an euch, die Antworten zu kombinieren und das Portal zu öffnen.
+        Sobald alles an seinem Platz ist, sollt ihr die uralten Worte sprechen, die das Portal euch
+        Offenbart. Wenn ihr richtig liegt, wird sich das Portal zum Turm des Palastes von Wesoria
+        öffnen und der letzte Hinweis wird euch enthüllt. Wenn nicht, muss das Rätsel von Neuem
+        begonnen werden. Seid wachsam, denn eure Mission ist fast erfüllt. Es liegt nun an euch, die
+        Antworten zu kombinieren und das Portal zu öffnen.
       </p>
     </QuizApp>
   </main>
 </template>
+
+<style>
+code {
+  font-size: 12px;
+}
+</style>
