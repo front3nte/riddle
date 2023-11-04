@@ -6,7 +6,7 @@ import AnimatedBalloons from '../components/AnimatedBalloons.vue'
 import { onMounted } from 'vue'
 
 const levelStore = useLevelStore()
-if (!levelStore.reached('quiz') && !import.meta.env.VITE_SKIP_ALLOWED) {
+if (!levelStore.reached('quiz') && !(import.meta.env.VITE_SKIP_ALLOWED === 'true')) {
   router.push('/')
 }
 

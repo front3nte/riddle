@@ -61,7 +61,7 @@ function submit() {
       <p>
         Richtig! {{ props.level === 'fantasy-quiz' ? '🧙‍♂️' : '🥳' }} Bewahrt die Antwort gut auf...
       </p>
-      <CelebrationAnimation v-if="props.level === 'final-riddle'" />
+      <CelebrationAnimation v-if="props.level === 'final-riddle'" :duration="successDuration" />
     </div>
     <form v-else @submit.prevent="submit">
       <h1>

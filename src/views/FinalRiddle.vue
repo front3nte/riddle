@@ -5,7 +5,7 @@ import { useLevelStore } from '../stores/quiz'
 import { onMounted } from 'vue'
 
 const levelStore = useLevelStore()
-if (!levelStore.reached('final-riddle') && !import.meta.env.VITE_SKIP_ALLOWED) {
+if (!levelStore.reached('final-riddle') && !(import.meta.env.VITE_SKIP_ALLOWED === 'true')) {
   router.push('/fantasy-quiz')
 }
 

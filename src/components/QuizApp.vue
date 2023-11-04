@@ -87,8 +87,8 @@ function nextQuestion() {
   router.push({ name: props.level, params: { quest: state.displayQuest } })
 }
 
-function decode (base64String: string) {
-  return atob(base64String);
+function decode(base64String: string) {
+  return atob(base64String)
 }
 </script>
 
